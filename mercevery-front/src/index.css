@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #c7c7c7e7;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+.headerColor {
+  background-color: rgb(6, 6, 79);
+}
+
+  @layer utilities {
+    .scrollbar-green {
+      scrollbar-width: thin;
+      scrollbar-color: #16a34a #e5e7eb; /* green-600 and gray-200 */
+    }
+    .scrollbar-green::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .scrollbar-green::-webkit-scrollbar-track {
+      background: #e5e7eb; /* gray-200 */
+    }
+    .scrollbar-green::-webkit-scrollbar-thumb {
+      background-color: #16a34a; /* green-600 */
+      border-radius: 10px;
+      border: 2px solid #e5e7eb; /* gray-200 */
+    }
+  }
