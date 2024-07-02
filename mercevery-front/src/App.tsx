@@ -4,6 +4,7 @@ import { IndexPage } from "./pages/IndexPage";
 import { BsSearch } from "react-icons/bs";
 import { LoginPage } from "./pages/LoginPage";
 import { Toaster } from "sonner";
+import { RegisterPage } from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
                 </Link>
               </li>
               <li className="navegation__li">
-                <Link to={''}>
+                <Link to={'/register'}>
                 Registrarse
                 </Link>
               </li>
@@ -62,6 +63,7 @@ function App() {
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<RegisterPage/>}/>
         </Routes>
 
       </div>

@@ -10,7 +10,7 @@ export const LoginPage: React.FC = () => {
           <span>
             Al crear una cuenta podras publicar tus productos o adquirirlos
           </span>
-          <span className="mt-2 bg-white w-[50%] flex justify-center items-center text-black rounded-xl p-1 hover:bg-black hover:text-white shadow-md">
+          <span className="mt-2 bg-white w-[50%] flex justify-center items-center text-black rounded-3xl p-1 hover:bg-black hover:text-white shadow-md">
             <Link to={""} className="w-full h-full flex justify-center items-center">Registrarse</Link>
           </span>
         </section>
