@@ -8,11 +8,13 @@ import { SendButton } from "../SendButtton";
 import axios from "axios";
 import { toast } from "sonner";
 import { saveUser } from "../../services/userService";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterForm: React.FC = () => {
   const [roleId, setRoleId] = useState<string>("0");
   const [initialValues, setInitialValues] = useState({});
   const [hasErrors, setHasErrors] = useState(true);
+  
 
   const clientData: ClientDataInterface = {
     roleId: 2,
@@ -33,6 +35,8 @@ export const RegisterForm: React.FC = () => {
     principal_activity: "",
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     console.log(roleId);
     if (roleId == "2") {
@@ -46,12 +50,22 @@ export const RegisterForm: React.FC = () => {
     initialValues: initialValues,
     enableReinitialize: true,
     onSubmit: async (values) => {
+      if (roleId !== '1' && roleId !== '2') {
+        setHasErrors(true);
+        toast.info('Debes seleccionar un tipo de usuario.')
+        throw new Error('Error');
+      }
       try {
         // console.log(values);
         setHasErrors(false);
         const response = await saveUser(values);
         if (response.status === 201) {
-          toast.success("Usuario creado con exito.");
+          if(roleId == "1") {
+            toast.success("Empresa creada con exito.");
+          } else {
+            toast.success('Usuario creado con exito')
+          }
+          navigate('/login');
         }
       } catch (error) {
         setHasErrors(true);
@@ -71,24 +85,27 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <section className="p-6 bg-gray-100 w-1/2 rounded-2xl">
-      <form action="" className="space-y-4" onSubmit={formik.handleSubmit}>
-        <article>
-          <label htmlFor="roleId" className="block text-gray-700">
-            Tipo de usuario
-          </label>
-          <select
-            name="roleId"
-            id="roleId"
-            onChange={handleRoleChange}
-            className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
-          >
-            <option value="">Seleccione un tipo de usuario</option>
-            <option value="2">Cliente</option>
-            <option value="1">Empresa</option>
-          </select>
-        </article>
-
+    <section className="p-6  w-1/2 ">
+      <article className="border-b border-b-gray-300">
+        <label htmlFor="roleId" className="block text-gray-700">
+          Tipo de usuario
+        </label>
+        <select
+          name="roleId"
+          id="roleId"
+          onChange={handleRoleChange}
+          className="mt-1 block w-full p-2 border mb-7 border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
+        >
+          <option value="">Seleccione un tipo de usuario</option>
+          <option value="2">Cliente</option>
+          <option value="1">Empresa</option>
+        </select>
+      </article>
+      <form
+        action=""
+        className="space-y-4 bg-gray-100 rounded-2xl mt-10 p-7 border border-zinc-300"
+        onSubmit={formik.handleSubmit}
+      >
         <article>
           <label htmlFor="email" className="block text-gray-700">
             Email
@@ -114,7 +131,6 @@ export const RegisterForm: React.FC = () => {
             className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
           />
         </article>
-
         <section className="data space-y-4">
           {roleId == "1" ? (
             <>
@@ -175,46 +191,50 @@ export const RegisterForm: React.FC = () => {
             </>
           ) : (
             <>
-              <article>
-                <label htmlFor="name" className="block text-gray-700">
-                  Nombre
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  onChange={formik.handleChange}
-                  placeholder="Tu nombre"
-                  className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
-                />
-              </article>
+              {roleId == "2" ? (
+                <>
+                  <article>
+                    <label htmlFor="name" className="block text-gray-700">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      onChange={formik.handleChange}
+                      placeholder="Tu nombre"
+                      className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
+                    />
+                  </article>
 
-              <article>
-                <label htmlFor="last_name" className="block text-gray-700">
-                  Apellidos
-                </label>
-                <input
-                  type="text"
-                  name="last_name"
-                  onChange={formik.handleChange}
-                  placeholder="Tus apellidos"
-                  className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
-                />
-              </article>
-              <article>
-                <label
-                  htmlFor="number_document"
-                  className="block text-gray-700"
-                >
-                  Número de documento
-                </label>
-                <input
-                  type="text"
-                  name="number_document"
-                  onChange={formik.handleChange}
-                  placeholder="Número de documento"
-                  className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
-                />
-              </article>
+                  <article>
+                    <label htmlFor="last_name" className="block text-gray-700">
+                      Apellidos
+                    </label>
+                    <input
+                      type="text"
+                      name="last_name"
+                      onChange={formik.handleChange}
+                      placeholder="Tus apellidos"
+                      className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
+                    />
+                  </article>
+                  <article>
+                    <label
+                      htmlFor="number_document"
+                      className="block text-gray-700"
+                    >
+                      Número de documento
+                    </label>
+                    <input
+                      type="text"
+                      name="number_document"
+                      onChange={formik.handleChange}
+                      placeholder="Número de documento"
+                      className="mt-1 block w-full p-2 border border-zinc-200 rounded-md shadow-sm focus:outline-none  focus:border-blue-900"
+                    />
+                  </article>
+                </>
+              ) : null}
             </>
           )}
         </section>
@@ -226,6 +246,12 @@ export const RegisterForm: React.FC = () => {
             textWhenIsClicked="Registrando usuario.."
           />
         </section>
+        <article className="w-full flex justify-center items-center flex-col">
+          <span>¿Ya tienes una cuenta?</span>
+          <Link to={'/login'} className="text-blue-700">
+            Iniciar sesion
+          </Link>          
+        </article>
       </form>
     </section>
   );

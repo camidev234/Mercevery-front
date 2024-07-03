@@ -2,12 +2,14 @@ import { useFormik } from "formik";
 import { LoginInterface } from "../../types/validations/validations";
 import { SendButton } from "../SendButtton";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { loginUser } from "../../services/authService";
+import { AppContext } from "../../context/AppContext";
 
 export const LoginForm: React.FC = () => {
   const [hasErrors, setHasErrors] = useState<boolean>(true);
+  const { onAuthUser } = useContext(AppContext);
   const formik = useFormik<LoginInterface>({
     initialValues: {
       email: "",
@@ -27,6 +29,7 @@ export const LoginForm: React.FC = () => {
           if (response.status === 200) {
             toast.success("Inicio de sesion realizado con exito.");
           }
+          onAuthUser(response.data?.access_token);
         } catch (error) {
           setHasErrors(true);
           if (axios.isAxiosError(error)) {

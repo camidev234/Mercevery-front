@@ -3,7 +3,7 @@ import { LoginForm } from "../components/auth/LoginForm";
 
 export const LoginPage: React.FC = () => {
   return (
-    <section className="login w-full h-[85.7vh] flex justify-center items-center bg-zinc-100">
+    <section className="login w-full h-[85.7vh] flex justify-center items-center">
       <section className="content flex justify-center items-center rounded-xl w-[610px] h-[250px]">
         <section className="text w-[50%] flex flex-col justify-center gap-2 headerColor rounded-s-2xl h-full p-7 text-white">
           <article className="title text-2xl">¿Eres cliente nuevo?</article>

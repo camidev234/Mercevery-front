@@ -9,7 +9,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 function App() {
   return (
     <>
-      <section className="header headerColor w-full h-[91px]">
+      <section className="header headerColor w-full h-[91px] sticky top-0">
         <header className="header w-full h-full flex">
           <div className="container w-[22%] h-full flex justify-center items-center">
             <Link
@@ -65,7 +65,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
         </Routes>
-
+        
       </div>
       <Toaster richColors expand={true} closeButton position="top-right" />
     </>
