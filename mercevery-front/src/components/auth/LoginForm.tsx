@@ -29,7 +29,7 @@ export const LoginForm: React.FC = () => {
           if (response.status === 200) {
             toast.success("Inicio de sesion realizado con exito.");
           }
-          onAuthUser(response.data?.access_token);
+          onAuthUser(response.data?.access_token, response.data?.user?.role?.id);
         } catch (error) {
           setHasErrors(true);
           if (axios.isAxiosError(error)) {
