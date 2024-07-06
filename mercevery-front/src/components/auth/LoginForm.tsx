@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { loginUser } from "../../services/authService";
 import { AppContext } from "../../context/AppContext";
+import { UserAuth } from "../../types/user/userAuth";
 
 export const LoginForm: React.FC = () => {
   const [hasErrors, setHasErrors] = useState<boolean>(true);
@@ -29,7 +30,8 @@ export const LoginForm: React.FC = () => {
           if (response.status === 200) {
             toast.success("Inicio de sesion realizado con exito.");
           }
-          onAuthUser(response.data?.access_token, response.data?.user?.role?.id);
+          const userInfo : UserAuth = response.data?.user; 
+          onAuthUser(response.data?.access_token, response.data?.user?.role?.id, userInfo);
         } catch (error) {
           setHasErrors(true);
           if (axios.isAxiosError(error)) {
