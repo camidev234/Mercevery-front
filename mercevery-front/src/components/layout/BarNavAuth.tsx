@@ -5,6 +5,7 @@ import { LuBoxes, LuLogOut } from "react-icons/lu";
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { FaHome } from "react-icons/fa";
 import Avatar from "react-avatar";
+import { BsFillGearFill } from "react-icons/bs";
 
 export const BarNavAuth = () => {
   const { role_id, me } = useContext(AppContext);
@@ -31,18 +32,23 @@ export const BarNavAuth = () => {
           <nav className="navegation w-full h-[65%] text-white">
             <section className="p-5 flex flex-col gap-3">
               <div className="navegation__li">
-                <Link to={""} className="flex p-2 items-center gap-2">
+                <Link to={"/home"} className="flex p-2 items-center gap-2">
                   <FaHome /> Inicio
                 </Link>
               </div>
               <div className="navegation__li">
-                <Link to={"/register"} className="flex p-2 items-center gap-2">
+                <Link to={""} className="flex p-2 items-center gap-2">
                   <LuBoxes /> Mis productos
                 </Link>
               </div>
               <div className="navegation__li">
-                <Link to={"/register"} className="flex p-2 items-center gap-2">
+                <Link to={""} className="flex p-2 items-center gap-2">
                   <BiSolidPurchaseTag /> Mis ventas
+                </Link>
+              </div>
+              <div className="navegation__li">
+                <Link to={""} className="flex p-2 items-center gap-2">
+                  <BsFillGearFill /> Configuracion
                 </Link>
               </div>
             </section>
